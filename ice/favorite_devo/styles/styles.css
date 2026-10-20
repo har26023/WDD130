@@ -45,3 +45,19 @@ body {
   box-shadow: 5px 5px 0px black;
   min-height: 400px;
 }
+
+table{
+  width: 80%;
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto;
+}
+
+table, th, td{
+  justify-content: center;
+  border: 2px solid;
+  border-collapse: collapse;
+}
+
+th, td{
+  padding: 5px;
+}
