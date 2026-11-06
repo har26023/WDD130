@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Feed Sign Up</title>
+
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            background: rgb(120, 96, 64);
+            justify-self: center;
+        }
+
+        #formContainer{
+            background: white;
+            border: 10px solid navy;
+            border-radius: 5%;
+            height: 790px;
+            max-height: 790px;
+            width: 600px;
+            max-width: 600px;
+            margin: 100px;
+            overflow: hidden;
+        }
+
+        #topper{
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #topper h1, #topper h2{
+            color: white;
+            text-shadow: 2px 2px 0px black;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        #topper h1{
+            top: 115px;
+        }
+
+        #topper h2{
+            top: 150px;
+        }
+
+        #topper img{
+            max-width:100%;
+        }
+
+        #closeBtn{
+            position:absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        h3{
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .formGrid{
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            column-gap: 150px;
+            row-gap: 30px;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto 20px auto;
+        }
+
+        .formGrid input[type="text"], .formGrid input[type="password"], .formGrid input[type="email"]{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 4px 6px;
+            border: 1px solid #777;
+            border-radius: 3px;
+        }
+
+        .formGrid > div{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        #letterbox{
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #termsandconditions{
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #button{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #button button{
+            padding: 4px 16px;
+            border: 1px solid #777;
+            border-radius: 3px;
+            background-color: #efefef;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        #scriptures{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            height: 100px;
+        }
+
+        #scriptures img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-right: 5px solid white;
+            box-sizing: border-box;
+        }
+
+        #scriptures img:last-child{
+            border-right: none;
+        }
+
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <div id="formContainer">
+        <div id="topper">
+            <button type="button" id="closeBtn">X</button>
+            <h1>Daily Feed</h1>
+            <h2>Scripture a Day</h2>
+            <img src="images/jesus_feeds_5000.jpeg" alt="jesus_feeds_5000">
+        </div>
+        <h3>Sign Up for Daily Scripture Feed</h3>
+        <form id="myForm">
+
+            <div class = "formGrid">
+                <label for="username">User Name:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label>Gender:</label>
+                <div>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" required>
+                    <label for="female">Female</label>
+                </div>
+            </div>
+
+            <section id="letterbox">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">Subscribe to newsletter</label>
+            </section>
+
+            <section id="termsandconditions">
+                <input type="checkbox" id="conditions" name="conditions" required>
+                <label for="conditions">I acknowledge the terms and conditions</label>
+            </section>
+
+            <section id="button">
+                <button type="submit">Submit</button>
+            </section>
+
+            <div id="scriptures">
+                <img src="images/old_testament.webp" alt="old testament">
+                <img src="images/new_testament.webp" alt="old testament">
+                <img src="images/book_of_mormon.webp" alt="old testament">
+                <img src="images/doctrine_and_covenants.webp" alt="old testament">
+                <img src="images/pearl_of_great_price.webp" alt="old testament">
+            </div>
+        </form>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        // Here is some Javascript to start looking forward to wdd131
+        document.getElementById("closeBtn").addEventListener("click", function () {
+            document.getElementById("formContainer").style.display = "none";
+         });
+        const form = document.getElementById('myForm');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Stop form from actually submitting
+
+            const formData = new FormData(form);
+            const entries = [];
+
+            for (const [key, value] of formData.entries()) {
+                if (key == "password") {
+                    entries.push(`<strong>${key}</strong>: ${value} (you should probably encrypt the password)`);
+                } else {
+                    entries.push(`<strong>${key}</strong>: ${value}`);
+                }
+            }
+
+            output.innerHTML = `
+            <br>  
+            <h3>Here is the data that would be sent to the server:</h3>
+            <ul>
+                ${entries.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+            `;
+                });
+    </script>
+
+</body>
+
+</html>
